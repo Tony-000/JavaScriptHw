@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="toolTipStyle.css">
+</head>
+<body>
+    <div>
+        <h1>代辦清單</h1>
+        <input type ="text" id ="inputText" placeholder = "請輸入代辦事項">
+        <button id = "btnAdd">新增</button>
+        <button id = "btnDel">刪除</button>    
+        <ul class = "item"> 
+        </ul>
+    </div>
+    <script>
+        let str = document.querySelector("#inputText");  
+        let btnDel = document.querySelector("#btnDel")    //搜尋按鈕id
+        btnDel.addEventListener("click",function(){       //註冊事件
+            del(str.value);
+            str.value = "";    //按下按鈕把輸入的值清空
+        })
+        let btnAdd = document.querySelector("#btnAdd")
+        btnAdd.addEventListener("click",add)  
+       
+        function del(str){
+            let x = document.querySelectorAll(".item li");
+            for(let i = 0; i< x.length; i++){
+                if(x[i].innerText.indexOf(str) > -1){
+                    x[i].remove();
+                }
+            }
+        } 
+        
+        function add()
+        {
+            let li = document.createElement("li");
+            li.innerText = str.value;
+            let btnedit = document.createElement("button");
+            let btndelt = document.createElement("button");
+            btnedit.innerText = "編輯";
+            btnedit.setAttribute("id","btnedit");
+            btndelt.innerText = "刪除";
+            let ul = document.querySelector(".item");
+            ul.prepend(li);
+            li.after(btndelt);
+            li.after(btnedit); 
+            str.value = "";
+            btndelt.addEventListener("click",function(){
+                li.remove();
+                btndelt.remove();
+                btnedit.remove();  
+            })
+            let editId = btnedit.getAttribute("id");
+            btnedit.addEventListener("click",function(){
+                if(editId == "btnedit")
+                {
+                    let input = document.createElement("input")
+                    input.setAttribute("id","editText")
+                    li.innerText = "";
+                    li.prepend(input);
+                    btnedit.setAttribute("id","btnok") ;
+                    btnedit.innerText = "確認"    
+                }
+                else if(editId == "btnok")
+                {    
+                    let strCh = li.querySelector("#editText") 
+                    btnedit.setAttribute("id","btnedit") ;
+                    btnedit.innerText = "編輯"
+                    li.innerText = strCh.value;               
+                }    
+        })
+        }
+        
+        // document.querySelector("body").addEventListener("keydown",function(event){     //鍵盤按鍵
+        //     console.log(event);
+        // });
+        // document.querySelector("body").addEventListener("mousemove",function(event){   //滑鼠移動
+        //     console.log(event);
+        // })
+    </script>
+</body>
+</html>
