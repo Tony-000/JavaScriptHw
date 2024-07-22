@@ -1,0 +1,14 @@
+@import url("reset.css");
+
+body{
+    background-color:burlywood
+}
+
+div{
+    
+}
+h1{
+    font-size: 80px;
+    color: white;
+    font-weight: bold;    
+}

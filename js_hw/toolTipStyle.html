@@ -53,8 +53,8 @@
                 btndelt.remove();
                 btnedit.remove();  
             })
-            let editId = btnedit.getAttribute("id");
             btnedit.addEventListener("click",function(){
+                let editId = btnedit.getAttribute("id");
                 if(editId == "btnedit")
                 {
                     let input = document.createElement("input")
