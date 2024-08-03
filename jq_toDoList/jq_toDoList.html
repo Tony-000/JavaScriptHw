@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/jq_cdn/jquery-3.7.1.js"></script>
+</head>
+<body>
+    <div>   
+        <table class = "item">
+            <h1>ToDoList</h1>           
+            <tr class = "input">
+                <td><input type="checkbox" id = "select" onclick = "select_all()">SelectAll</td>  
+                <td><input type ="text" id ="inputText" placeholder = "請輸入代辦事項"></td>
+                <td>
+                    <button onclick = "add(this)">Add</button>
+                    <button onclick = "del_check()">DeleteCheck</button>
+                </td>           
+            </tr>
+        </table>
+    </div>
+</body>
+<script>
+let str = $("#inputText");
+function add(e){
+    let button_td = $(e).closest("td").clone();
+    let tr = $(e).parents("tr").after(`"<tr class = "list"><td><input type="checkbox" class = "selectList"></td><th align="left">${str.val()}</th></tr>"`);
+    tr.next("tr").append(button_td);
+    $(".list button:first").text("Edit").attr("onclick","edit(this)");
+    $(".list button:first").next().text("DeleteThis").attr("onclick","del(this)");    
+    str.val("")
+}
+function select_all(){
+    let selectCheck = $("#select").prop("checked");
+    if(selectCheck == true)
+    {
+        $(".selectList").prop("checked",true);
+    }
+}
+function del_check(){
+    $("[class = selectList]:checked").each(function(index,elem){
+        $(elem).parents("tr").remove();
+    })
+    $("#select").prop("checked",false);
+}
+function del(e){
+    $(e).closest("tr").remove();
+}
+function edit(e){
+    $(e).parents("td").prev().replaceWith("<input></input)");
+    $(e).text("Enter").attr("onclick","enter(this)");
+}
+function enter(e){
+    let str_edit = $(e).parents("td").prev().val();
+    $(e).parents("td").prev().replaceWith(`"<th align="left">${str_edit}</th>"`);
+    $(e).text("Edit").attr("onclick","edit(this)");
+}
+
+</script>
+</html>
