@@ -34,9 +34,9 @@ function add(e){
 function select_all(){
     let selectCheck = $("#select").prop("checked");
     if(selectCheck == true)
-    {
-        $(".selectList").prop("checked",true);
-    }
+        $(".selectList").prop("checked",true);  
+    else
+        $(".selectList").prop("checked",false);
 }
 function del_check(){
     $("[class = selectList]:checked").each(function(index,elem){
